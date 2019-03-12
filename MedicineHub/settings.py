@@ -55,7 +55,7 @@ ROOT_URLCONF = 'MedicineHub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'shop','templates/'),], #adding templates directory 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shop.context_processors.menu_links', #registering conext processor to make category links available throughout the website
             ],
         },
     },
@@ -119,3 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+''' Since we have two image fields in our models declaration so we need to put some configurations in the settings file in order to make sure the images are uploaded to the right location '''
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #declaring static root which is where our static files will be stored
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+    )
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'static','media')

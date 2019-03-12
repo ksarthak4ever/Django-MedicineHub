@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block metadescription %}
+	{% if category %}
+		{{ category.description|truncatewords:155 }}
+	{% else %}
+		Welcome to MedicineHub, Your online Medicine Store.
+	{% endif %}
+{% endblock %}
+
+{% block title %}
+	{% if category %}
+		{{ category.name }} - MedicineHub
+	{% else %}
+		Buy whichever medicine you want - MedicineHub
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<!--Breadcrumb navigation-->
+	{% if category %}
+		<div class="row my_row_class">
+			<div class="mx-auto">
+				<p> <a href="{% url 'shop:allProdCat' %}">Our Medicine Collection</a> | {{category.name}} </p> 
+			</div>
+		</div>
+	{% endif %}
+	<div class="mx-auto">
+	{% if category %}
+		<img class="my_image" src="{{ category.image.url }}" alt="{{ category.name }}">
+	</div>
+	<br>
+	<div>
+		<h1 class="text-center my_title">{{category.name}}</h1>
+		<p class="text-justify">{{category.description}}</p>
+	</div>
+	{% else %}
+		<img class="my_image my_image_padding" src="{% static 'img/banner.jpg' %}" alt="Our Medicine Collection" >
+	</div>
+	<br>
+	<div>
+		<h1 class="text-center my_title">Our Medicines Collection</h1>
+		<p class="text-justify">Medicine is the science and practice of establishing the diagnosis, prognosis, treatment, and prevention of disease. Medicine encompasses a variety of health care practices evolved to maintain and restore health by the prevention and treatment of illness.</p>
+	</div>
+	{% endif %}
+	<div>
+		<div>
+			{% for product in products %}
+				<div>
+					<div>
+						<a href=""><img src="{{product.image.url}}" alt="{{product.name}}"></a>
+						<div>
+							<h4>{{product.name}}</h4>
+							<p>{{product.price}}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
