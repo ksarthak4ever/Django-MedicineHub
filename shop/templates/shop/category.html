@@ -44,15 +44,15 @@
 		<p class="text-justify">Medicine is the science and practice of establishing the diagnosis, prognosis, treatment, and prevention of disease. Medicine encompasses a variety of health care practices evolved to maintain and restore health by the prevention and treatment of illness.</p>
 	</div>
 	{% endif %}
-	<div>
-		<div>
+	<div class="container">
+		<div class="row mx-auto">
 			{% for product in products %}
-				<div>
-					<div>
-						<a href="{{product.get_url}}"><img src="{{product.image.url}}" alt="{{product.name}}"></a>
-						<div>
+				<div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4"> <!-- using custom class and bootstrap grid classes to change div and making category page more interactive -->
+					<div class="card text-center" style="min-width: 18rem;"> <!-- using bootstrap card classes to put all the products in cards -->
+						<a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.image.url}}" alt="{{product.name}}"></a> <!-- So that when we click on any product image in a specific category we can go to the products details --> <!-- in img tag the classes are used to store images inside the cards --> 
+						<div class="card-body">
 							<h4>{{product.name}}</h4>
-							<p>{{product.price}}</p>
+							<p>Rs.{{product.price}}</p>
 						</div>
 					</div>
 				</div>
