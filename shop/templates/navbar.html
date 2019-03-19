@@ -21,9 +21,10 @@
         <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>()</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search:searchResult' %}" method="get">
+      {% csrf_token %}  <!-- Adding cross-site request forgery token to add a layer of protection in the search form against cross-site request forgery -->
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q"><!-- name="q" as using Q objects for complex lookups and q will be used to display products using search app -->
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i> </button> 
     </form>
   </div>
 </nav>

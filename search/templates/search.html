@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block metadescription %}
+	We have all the meds.
+{% endblock %}
+
+{% block title %}
+	Search - MedicineHub
+{% endblock %}
+
+{% block content %}	<div>
+		<p class="text-center my_search_text">You have searched for: <p> "{{ query }}" </p></p>
+	</div>
+	<div class="container">
+		<div class="row mx-auto">
+			{% for product in products %}
+				<div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-12 col-lg-4"> <!-- using custom class and bootstrap grid classes to change div and making category page more interactive -->
+					<div class="card text-center" style="min-width: 18rem;"> <!-- using bootstrap card classes to put all the products in cards -->
+						<a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.image.url}}" alt="{{product.name}}"></a> <!-- So that when we click on any product image in a specific category we can go to the products details --> <!-- in img tag the classes are used to store images inside the cards --> 
+						<div class="card-body">
+							<h4>{{product.name}}</h4>
+							<p>Rs.{{product.price}}</p>
+						</div>
+					</div>
+				</div>
+				{% empty %} <!-- if no products found from query i.e empty result -->
+				<div class="row mx-auto">
+					<p class="text-center my_search_text">0 results found</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
