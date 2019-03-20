@@ -127,3 +127,34 @@ body {
 .my_search_text {
 	padding-top: 20px;
 }
+
+/****Cart Page****/
+.my_custom_table {
+	min-width: 400px;
+	font-size: 14px;
+}
+
+.my_custom_thead {
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: .2em;
+	background-color: #f8f9fa !important;
+}
+
+.custom_image {
+	widows: 100px;
+	height: 100px;
+}
+
+.custom_a {
+	text-decoration: none;
+}
+
+.custom_icon {
+	text-decoration: none;
+	color: #868e96 !important;
+}
+
+.my_custom_button {
+	margin-top: 5px;
+}
