@@ -17,9 +17,11 @@
           {% endfor %}
         </div>
       </li>
-            <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>()</a>
+      {% if item_count > 0 %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart:cart_detail' %}"><i class="fas fa-shopping-cart"></i>({{item_count}})</a> <!-- using item_count dictionary from the context_processor counter to display no. of items in the cart fot that cart_id -->
       </li>
+      {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0" action="{% url 'search:searchResult' %}" method="get">
       {% csrf_token %}  <!-- Adding cross-site request forgery token to add a layer of protection in the search form against cross-site request forgery -->

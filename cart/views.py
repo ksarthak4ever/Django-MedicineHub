@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from shop.models import Product
 from . models import Cart,CartItem
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def _cart_id(request): #Checking if session id has been created in the customer browser
@@ -21,7 +22,8 @@ def add_cart(request, product_id): #view for adding products to cart
 		cart.save()
 	try:
 		cart_item = CartItem.objects.get(product=product, cart=cart)
-		cart_item.quantity += 1
+		if cart_item.quantity < cart_item.product.stock: #checking if products added in cart are not more than the stock of the product
+			cart_item.quantity += 1
 		cart_item.save()
 	except CartItem.DoesNotExist:
 		cart_item = CartItem.objects.create(

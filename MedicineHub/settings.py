@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'shop.context_processors.menu_links', #registering conext processor to make category links available throughout the website
+                'cart.context_processors.counter',
             ],
         },
     },
