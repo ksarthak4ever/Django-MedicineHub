@@ -70,11 +70,11 @@
 							{% if cart_item.quantity < cart_item.product.stock %} <!-- if product still in stock after adding then + icon keep on showing -->
 								<td>
 									<!-- Getting the icons using i tags from fontawesome tookit of css -->
-									<a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;<a href="" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;<a href="" class="custom_a"><i class="fas fa-trash-alt custom_icon"></i></a>
+									<a href="{% url 'cart:add_cart' cart_item.product.id %}" class="custom_a"><i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;<a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;<a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-trash-alt custom_icon"></i></a>
 								</td>
 							{% else %}
 								<td>
-									&nbsp;<a href="" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;<a href="" class="custom_a"><i class="fas fa-trash-alt custom_icon"></i></a>
+									&nbsp;<a href="{% url 'cart:cart_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;<a href="{% url 'cart:full_remove' cart_item.product.id %}" class="custom_a"><i class="fas fa-trash-alt custom_icon"></i></a>
 								</td>
 								<td></td>
 							{% endif %}
