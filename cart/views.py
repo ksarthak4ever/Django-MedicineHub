@@ -3,6 +3,9 @@ from shop.models import Product
 from . models import Cart,CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
+import stripe
+from django.conf import settings
+
 
 def _cart_id(request): #Checking if session id has been created in the customer browser
 	cart = request.session.session_key
@@ -45,7 +48,27 @@ def cart_detail(request, total=0, counter=0, cart_items = None): #View for cart 
 	except ObjectDoesNotExist:
 		pass
 
-	return render(request, 'cart.html', dict(cart_items = cart_items, total	= total, counter = counter)) 
+	stripe.api_key = settings.STRIPE_SECRET_KEY #setting up these values so i can use them in cart.html as mentions in stripe documentation
+	stripe_total = int(total * 100)
+	description = 'MedicineHub - New Order'
+	data_key = settings.STRIPE_PUBLISHABLE_KEY
+	if request.method == 'POST':
+		try:
+			token = request.POST['stripeToken']
+			email = request.POST['stripeEmail']
+			customer = stripe.Customer.create( #tokenizing the customer card as told in stripe doc
+					email = email,
+					source = token
+				) #creating a charge
+			charge = stripe.Charge.create(
+					amount = stripe_total,
+					currency = "inr",
+					description = description,
+					customer = customer.id
+				)
+		except stripe.error.CardError as e:
+			return False,e
+	return render(request, 'cart.html', dict(cart_items = cart_items, total	= total, counter = counter, data_key = data_key, stripe_total = stripe_total, description = description)) 
 
 
 def cart_remove(request, product_id): #to remove a quantity product from cart
