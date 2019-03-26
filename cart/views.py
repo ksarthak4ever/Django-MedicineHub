@@ -3,8 +3,10 @@ from shop.models import Product
 from . models import Cart,CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
-import stripe
+import stripe #to use stripe as payment gateway
 from django.conf import settings
+
+from order.models import Order,OrderItem #to create orders
 
 
 def _cart_id(request): #Checking if session id has been created in the customer browser
@@ -56,6 +58,18 @@ def cart_detail(request, total=0, counter=0, cart_items = None): #View for cart 
 		try:
 			token = request.POST['stripeToken']
 			email = request.POST['stripeEmail']
+			billingName = request.POST['stripeBillingName'] #to get Billing Name from stripe payment form
+			billingAddress1 = request.POST['stripeBillingAddressLine1']
+			billingCity = request.POST['stripeBillingAddressCity']
+			billingState = request.POST['stripeBillingAddressState']
+			billingPostcode = request.POST['stripeBillingAddressZip']
+			billingCountry = request.POST['stripeBillingAddressCountryCode']
+			shippingName = request.POST['stripeShippingName']
+			shippingAddress1 = request.POST['stripeShippingAddressLine1']
+			shippingCity = request.POST['stripeShippingAddressCity']
+			shippingState = request.POST['stripeShippingAddressState']
+			shippingPostcode = request.POST['stripeShippingAddressZip']
+			shippingCountry = request.POST['stripeShippingAddressCountryCode']
 			customer = stripe.Customer.create( #tokenizing the customer card as told in stripe doc
 					email = email,
 					source = token
@@ -66,6 +80,44 @@ def cart_detail(request, total=0, counter=0, cart_items = None): #View for cart 
 					description = description,
 					customer = customer.id
 				)
+			''' Creating the Order '''
+			try:
+				order_details = Order.objects.create(
+						token = token,
+						total = total,
+						emailAddress = email, 
+						billingName = billingName,
+						billingAddress1 = billingAddress1,
+						billingCity = billingCity,
+						billingState = billingState,
+						billingPostcode = billingPostcode,
+						billingCountry = billingCountry,
+						shippingName = shippingName,
+						shippingAddress1 = shippingAddress1,
+						shippingCity = shippingCity,
+						shippingState = shippingState,
+						shippingPostcode = shippingPostcode,
+						shippingCountry = shippingCountry
+					)
+				order_details.save()
+				for order_item in cart_items: #every time the for loop runs a cart item is assigned to the order item variable
+					oi = OrderItem.objects.create(
+							product = order_item.product.name,
+							quantity = order_item.quantity,
+							price = order_item.product.price,
+							order = order_details
+						) #oi variable is getting the value of each order item in order to create the order item record
+					oi.save()
+					'''Reduce stock when order is placed or saved'''
+					products = Product.objects.get(id = order_item.product.id)
+					products.stock = int(order_item.product.stock - order_item.quantity) #removing products from stock once order been completed 
+					products.save()
+					order_item.delete() #Once order complete the order_items will get deleted
+					'''The terminal will print this message when the order is saved'''
+					print('The order has been created')
+				return redirect('shop:allProdCat')
+			except ObjectDoesNotExist:
+				pass
 		except stripe.error.CardError as e:
 			return False,e
 	return render(request, 'cart.html', dict(cart_items = cart_items, total	= total, counter = counter, data_key = data_key, stripe_total = stripe_total, description = description)) 

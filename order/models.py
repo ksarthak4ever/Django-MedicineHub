@@ -4,7 +4,7 @@ from django.db import models
 class Order(models.Model):
 	token = models.CharField(max_length=255, blank=True)
 	total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='INR Order Total')
-	email = models.EmailField(max_length=250, blank=True, verbose_name='Email Address')
+	emailAddress = models.EmailField(max_length=250, blank=True, verbose_name='Email Address')
 	created = models.DateTimeField(auto_now_add = True)
 	billingName = models.CharField(max_length = 250, blank = True)
 	billingAddress1 = models.CharField(max_length = 250, blank = True)
@@ -30,7 +30,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
 	product = models.CharField(max_length = 250)
 	quantity = models.IntegerField()
-	price = models.DecimalField(max_digits = 10, decimal_places = 2, verbose_name = 'USD Price')
+	price = models.DecimalField(max_digits = 10, decimal_places = 2, verbose_name = 'INR Price')
 	order = models.ForeignKey(Order, on_delete = models.CASCADE)
 
 	class Meta:
