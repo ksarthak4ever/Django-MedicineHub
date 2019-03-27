@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+	Thanks - MedicineHub
+{% endblock %}
+
+{% block content %}
+	<div>
+		<div class="text-center">
+			<br>
+			<br>
+			<h1 class="text-center my_title">
+				Thanks for placing your order
+			</h1>
+			<br>
+			<br>
+			<p>Your order number is:<b>{{customer_order.id}}</b> </p>
+			<br>
+			<p>
+				We have recieved your order and will begin processing it right away.
+			</p>
+		</div>
+	</div>
+{% endblock %}

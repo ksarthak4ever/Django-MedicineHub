@@ -59,7 +59,7 @@ ROOT_URLCONF = 'MedicineHub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'shop','templates/'), os.path.join(BASE_DIR,'search','templates/'), os.path.join(BASE_DIR,'cart','templates/')], #adding templates directory 
+        'DIRS': [os.path.join(BASE_DIR,'shop','templates/'), os.path.join(BASE_DIR,'search','templates/'), os.path.join(BASE_DIR,'cart','templates/'), os.path.join(BASE_DIR,'order','templates/')], #adding templates directory 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

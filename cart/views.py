@@ -115,7 +115,7 @@ def cart_detail(request, total=0, counter=0, cart_items = None): #View for cart 
 					order_item.delete() #Once order complete the order_items will get deleted
 					'''The terminal will print this message when the order is saved'''
 					print('The order has been created')
-				return redirect('shop:allProdCat')
+				return redirect('order:thanks', order_details.id)
 			except ObjectDoesNotExist:
 				pass
 		except stripe.error.CardError as e:
