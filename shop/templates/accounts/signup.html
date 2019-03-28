@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block metadescription %}
+	Sign up to get a new account with us. TMedicineHub is your one stop for all different types of medicines.
+{% endblock %}
+
+{% block title %}
+	Create a New Account - MedicineHub
+{% endblock %}
+
+{% block content %}
+	<div>
+		{% if not form.is_valid %}  <!-- Checking if form details posted are not valid -->
+			<div class="mx-auto">
+				<br>
+				<h1 class="my_title text-center">Create a new account</h1>
+				<br>
+				<div class="col-9 col-sm-9 col-md-6 col-lg-5 mx-auto bg-light">
+					<br>
+					<p>Enter the following information to create a new account.</p>
+					<form method="post">
+						{% csrf_token %}
+						<p>{{ form }}</p> <!-- added filter crispy to the form -->
+						<button type="submit" class="btn btn-secondary">Register Account</button>
+					</form>
+					<br>
+				</div>
+			</div>
+		{% else %} <!-- i.e if form details are correct -->
+			<div class="mx-auto">
+				<br>
+				<h1 class="my_title text-center">Your account has been successfully created</h1>
+				<br>
+				<div>
+					<p>
+						Dear Customer,
+						<br>
+						<br>
+						Your account has been created and is ready to use.
+						<br>
+						<a href="{% url 'signin' %}">Sign in</a> and enjoy the collection of cushions we offer at The Perfect Cushion Store.
+					</p>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	<br>
+{% endblock %}

@@ -181,3 +181,9 @@ body {
 	background-image: none !important;
 	background: none !important;
 }
+
+/****Sign Up Page****/
+.errorlist li {
+	color: red;
+	font-weight: bold;
+}

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings #importing settings 
 from django.conf.urls.static import static #importing static after settings so we can map the static and media urls
+from shop import views
 
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('search/', include('search.urls')),
     path('order/', include('order.urls')),
+    path('account/create/', views.signupView, name='signup'),
     path('', include('shop.urls')),
 ]
 
