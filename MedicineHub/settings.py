@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cart',
     'stripe',
     'order',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'static','media')
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_pSFvQoPkqRjCwGnsdk1LCSC100uOeJdqFx'#If i were to use this in production then put keys in environment variables
 STRIPE_SECRET_KEY = 'sk_test_ZspgfPUkbme9FRsbo995ixgi00eAsfvTUK' 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #telling the version of bootstrap crispy forms package should use in forms

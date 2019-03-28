@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block metadescription %}
 	Sign up to get a new account with us. TMedicineHub is your one stop for all different types of medicines.
@@ -21,7 +22,7 @@
 					<p>Enter the following information to create a new account.</p>
 					<form method="post">
 						{% csrf_token %}
-						<p>{{ form }}</p> <!-- added filter crispy to the form -->
+						<p>{{ form | crispy }}</p> <!-- added filter crispy to the form -->
 						<button type="submit" class="btn btn-secondary">Register Account</button>
 					</form>
 					<br>
