@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="my_custom_menu">
+		<ul>
+			{% if request.user.is_authenticated and request.user.first_name %} <!-- checking if user is authenticated and first name of the user is available -->
+			<li>
+				Welcome, {{ request.user.first_name }} <i class="fas fa-user"></i>
+			</li>
+			<li>
+				<a href="{% url 'signout' %}">Sign Out <i class="fas fa-sign-out-alt"></i></a>
+			</li>
+			{% else %}
+			<li>
+				<a href="{% url 'signup' %}">Sign Up <i class="fas fa-user-plus"></i></a>
+			</li>
+			<li>
+				<a href="{% url 'signin' %}">Sign In <i class="fas fa-sign-in-alt"></i></a>
+			</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>	

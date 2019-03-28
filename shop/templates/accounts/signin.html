@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block metadescription %}
+	Sign in to gain access to our medicine collections.
+{% endblock %}
+
+{% block title %}
+	Login - MedicineHub
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<br>
+		<h1 class="my_title text-center">Login or Create a New Account</h1>
+		<br>
+		<div class="row">
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 text-center my_custom_div">
+				<br>
+				<h2 class="my_title">New Customer?</h2>
+				<br>
+				<p>When you create an account with us, you can see your order history.</p>
+				<br>
+				<a href="{% url 'signup' %}" class="btn btn-secondary">Create New Account</a>
+			</div>
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 bg-light">
+				<div>
+					<br>
+					<h2 class="my_title">Registered Customers Only</h2>
+					<form method="post">
+						{% csrf_token %}
+						<p>{{ form | crispy }}</p>
+						<button type="submit" class="btn btn-secondary">Login</button>
+					</form>
+					<br>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<br>
+{% endblock %}
