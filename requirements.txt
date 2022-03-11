@@ -3,7 +3,7 @@ chardet==3.0.4
 Django==2.1.7
 django-crispy-forms==1.7.2
 idna==2.8
-Pillow==5.4.1
+Pillow==9.0.1
 pytz==2018.9
 requests==2.21.0
 stripe==2.23.0
